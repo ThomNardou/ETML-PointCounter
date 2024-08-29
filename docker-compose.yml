@@ -4,6 +4,9 @@
 #   Last Modified By: -
 #   Last Modification Date: -
 
+# If you worked on this file go to the docker-guide.md and add yourself
+# as one of the authors to support the devs/users
+
 version: "3"
 
 services:
