@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  postgres: 
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: db_PointCounter
+    ports: 
+      - "5432:5432"
+
+  adminer:
+    image: adminer
+    ports:
+      - "8081:8080"
+    depends_on:
+      - postgres
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+
+networks:
+  default:
+    driver: bridge
