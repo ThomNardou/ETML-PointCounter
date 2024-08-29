@@ -8,3 +8,15 @@
 .navbar {
   font-family: 'Montserrat', sans-serif;
 }
+
+.firstPlace {
+  color: #FFD700;
+}
+
+.secondPlace {
+  color: #C0C0C0;
+}
+
+.thirdPlace {
+  color: #CD7F32;
+}
