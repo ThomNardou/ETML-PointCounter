@@ -1,3 +1,9 @@
+#   Version: 1 
+#   Author: Lucas Simões Pólvora
+#   Creation Date: 8/29/2024
+#   Last Modified By: -
+#   Last Modification Date: -
+
 version: "3"
 
 services:
@@ -10,6 +16,8 @@ services:
       POSTGRES_DB: db_PointCounter
     ports: 
       - "5432:5432"
+    volumes:
+      - ./db.sql:/docker-entrypoint-initdb.d/db.sql
 
   adminer:
     image: adminer
