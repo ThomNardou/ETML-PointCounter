@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -35,7 +37,8 @@ export default function Home() {
 
   return (
     <main>
-      <div className="highScore pt-28 w-full text-center">
+      <div className="highScore pt-28 w-full text-center m-auto">
+
         <Box sx={{ maxWidth: 150 }}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Module</InputLabel>
@@ -51,14 +54,12 @@ export default function Home() {
             </Select>
           </FormControl>
         </Box>
-
         <TableContainer
           component={Paper}
           sx={{
             backgroundColor: "#23304d",
             width: "50%",
-            display: "block",
-            margin: "64px auto",
+            display: "block"
           }}
         >
           <Table>
