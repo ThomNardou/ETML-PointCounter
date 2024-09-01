@@ -1,5 +1,6 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
+import { sequelize } from "./db/sequelize";
 
 dotenv.config();
 
@@ -11,7 +12,15 @@ app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
     res.send("Hello sgwshszh");
-})
+});
+
+sequelize.authenticate()
+    .then(() => {
+        console.log("Connection has been established successfully.");
+    })
+    .catch((err: Error) => {
+        console.error("Unable to connect to the database:", err);
+    });
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
