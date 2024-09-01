@@ -11,7 +11,7 @@ const port = process.env.API_PORT || 3000;
 app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
-    res.send("Hello sgwshszh");
+    res.send("Welcome to the PointCounter API");
 });
 
 sequelize.authenticate()
