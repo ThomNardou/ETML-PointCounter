@@ -5,7 +5,7 @@
 
 ## Guide
 
-In the root of the project and open a cmd. Type this command: 
+In the Docker/PointCounter-Docker of the project, open a cmd. Type this command: 
 
 ```cmd
   docker compose up -d
