@@ -1,7 +1,7 @@
 # Guide to setup docker
 
 ## Tools Needed
-- Docker version 25.0.3
+- Docker version 25.0.3 or a later version
 
 ## Guide
 
