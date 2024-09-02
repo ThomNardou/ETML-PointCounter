@@ -1,5 +1,5 @@
 import Image from "next/image"
-
+import Link from "next/link"
 export default function NavBarComponent() {
     return (
         <>
@@ -8,7 +8,7 @@ export default function NavBarComponent() {
                     <nav className="w-full flex justify-end">
                         <ul className="navBar flex w-2/5 mr-12 justify-between items-center text-white">
                             <li>Gamification</li>
-                            <li>about</li>
+                            <li><Link href="/about">about</Link></li>
                             <li><Image src={""} alt="User Pfp" width={60} height={60} className="bg-neutral-700 rounded-full"/></li>
                         </ul>
                     </nav>
