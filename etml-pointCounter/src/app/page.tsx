@@ -41,7 +41,7 @@ export default function Home() {
 
         <Box sx={{ maxWidth: 150 }}>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Module</InputLabel>
+            <InputLabel id="demo-simple-select-label">Modules</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
