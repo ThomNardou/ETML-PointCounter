@@ -1,7 +1,7 @@
 import { DataTypes, Sequelize } from "@sequelize/core";
 
 const ModuleModel = (sequelize: Sequelize) => {
-    return sequelize.define("t_module", {
+    return sequelize.define("t_modules", {
         id_module: {
             type: DataTypes.INTEGER,
             primaryKey: true,
