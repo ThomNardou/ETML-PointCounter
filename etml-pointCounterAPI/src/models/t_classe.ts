@@ -11,6 +11,10 @@ const ClassModel = (sequelize: Sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
+    },
+    {
+        // permet d'enlever le pluriel
+        freezeTableName: true,
     })
 }
 

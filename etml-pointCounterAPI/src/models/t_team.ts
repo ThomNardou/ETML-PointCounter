@@ -2,7 +2,7 @@ import { Sequelize, DataTypes } from "@sequelize/core";
 
 const TeamModel = (sequelize: Sequelize) => {
     return sequelize.define("t_team", {
-        id_group: {
+        id_team: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
@@ -15,10 +15,14 @@ const TeamModel = (sequelize: Sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        id_module: {
+        fk_module: {
             type: DataTypes.INTEGER,
             allowNull: false,
         }
+    },
+    {
+        // permet d'enlever le pluriel
+        freezeTableName: true
     })
 }
 
