@@ -6,10 +6,10 @@ const HasModel = (sequelize: Sequelize) => {
         fk_user: {
             type: DataTypes.INTEGER,
             allowNull: true,
-            // references: {
-            //     model: User,
-            //     key: 'id_user'
-            // }
+            references: {
+                model: User,
+                key: 'id_user'
+            }
         },
         fk_module: {
             type: DataTypes.INTEGER,
