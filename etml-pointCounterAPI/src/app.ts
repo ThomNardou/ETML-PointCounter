@@ -4,6 +4,9 @@ import { initDb, sequelize } from "./db/sequelize";
 import { PublicClientApplication, ConfidentialClientApplication, AccountInfo } from "@azure/msal-node";
 import { msalConfig } from "./auth/authConfig";
 import session = require("express-session");
+import { loginRouter } from "./routes/login/login";
+import { redirectRouter } from "./routes/login/redirect";
+import { logoutRouter } from "./routes/logout/logout";
 
 dotenv.config();
 
@@ -13,8 +16,10 @@ const port = process.env.API_PORT || 3000;
 const msalClient = new ConfidentialClientApplication(msalConfig)
 
 
-app.use(express.json());
+export { msalClient };
 
+
+app.use(express.json());
 app.use(
     session({
         secret: process.env.SESSION_SECRET as string,
@@ -34,54 +39,15 @@ declare module 'express-session' {
     }
 }
 
-app.get("/login", (req: Request, res: Response) => {
-    const authCodeUrlParameters = {
-        scopes: ["openid", "profile", "User.Read"],
-        redirectUri: "http://localhost:3000/auth/redirect",
-    };
+///////////////////////////////////////////////// AUTHENTICATION ROUTES //////////////////////////////////////////////////
+app.use('/login', loginRouter);
+app.use('/auth/redirect', redirectRouter);
+app.use('/logout', logoutRouter);
 
-    msalClient
-        .getAuthCodeUrl(authCodeUrlParameters)
-        .then((response) => {
-            res.redirect(response);
-        })
-        .catch((error) => console.log(JSON.stringify(error)));
-});
-
-app.get("/auth/redirect", (req: Request, res: Response) => {
-    const tokenRequest = {
-        code: req.query.code as string,
-        scopes: ["openid", "profile", "User.Read"],
-        redirectUri: "http://localhost:3000/auth/redirect",
-    };
-
-    msalClient
-        .acquireTokenByCode(tokenRequest)
-        .then((response) => {
-            req.session.user = response.account ?? undefined;
-            console.log(response)
-            res.send(`Bonjour, ${response.account?.username}! Vous êtes connecté.`);
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Erreur lors de la connexion.");
-        });
-});
-
-app.get("/logout", (req, res) => {
-    req.session.destroy((err) => {
-        if (err) {
-            console.log(err);
-            res.status(500).send("Erreur lors de la déconnexion.");
-        } else {
-            res.redirect("/");
-        }
-    });
-});
 
 app.get("/", (req: Request, res: Response) => {
     if (req.session.user) {
-        res.send(`Connecté en tant que ${req.session.user.username}`);
+        res.send(`Connecté en tant que ${req.session.user.username} ET ${req.session.user.name}`);
     } else {
         res.send("Non connecté. <a href='/login'>Se connecter avec Microsoft</a>");
     }
@@ -100,3 +66,4 @@ initDb();
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 })
+
