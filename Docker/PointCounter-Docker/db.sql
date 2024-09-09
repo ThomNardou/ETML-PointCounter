@@ -1,3 +1,11 @@
+--   Version: 1 
+--   Author: Lucas Simões Pólvora
+--   Creation Date: 8/29/2024
+--   Last Modified By: -
+--   Last Modification Date: -
+
+-- If you worked on this file go to the docker-guide.md and add yourself
+-- as one of the authors to support the devs/users
 CREATE TABLE IF NOT EXISTS t_module(
    id_module SERIAL PRIMARY KEY,
    modNumber INT NOT NULL,
