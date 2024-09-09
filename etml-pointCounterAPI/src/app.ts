@@ -1,7 +1,6 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import { initDb, sequelize } from "./db/sequelize";
-import { login } from "./auth/authService";
 import { PublicClientApplication, ConfidentialClientApplication, AccountInfo } from "@azure/msal-node";
 import { msalConfig } from "./auth/authConfig";
 import session = require("express-session");
