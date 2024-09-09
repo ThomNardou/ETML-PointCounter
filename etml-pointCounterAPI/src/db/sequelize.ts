@@ -10,6 +10,7 @@ import { ClassModel } from "../models/t_classe";
 import { TeamModel } from "../models/t_team";
 
 import dotenv from "dotenv";
+import { group } from "console";
 
 dotenv.config();
 
@@ -33,29 +34,12 @@ const Has = HasModel(sequelize);
 const IsAffiliated = IsAffiliatedModel(sequelize);
 const Learns = LearnsModel(sequelize);
 
-User.hasMany(Has, { foreignKey: "id_user" });
-Has.belongsTo(User, { foreignKey: "id_user" });
+User.belongsTo(Class, { foreignKey: "fk_class" });
+Class.hasMany(User, { foreignKey: "fk_class" });
 
-Module.hasMany(Has, { foreignKey: "id_module" });
-Has.belongsTo(Module, { foreignKey: "id_module" });
+Team.hasMany(Module, { foreignKey: "fk_module" });
+Module.belongsTo(Team, { foreignKey: "fk_module" });
 
-User.hasMany(IsAffiliated, { foreignKey: "id_user" });
-IsAffiliated.belongsTo(User, { foreignKey: "id_user" });
-
-Team.hasMany(IsAffiliated, { foreignKey: "id_group" });
-IsAffiliated.belongsTo(Team, { foreignKey: "id_group" });
-
-Team.hasMany(Module, { foreignKey: "id_module" });
-Module.belongsTo(Team, { foreignKey: "id_module" });
-
-Class.hasMany(Learns, { foreignKey: "id_class" });
-Learns.belongsTo(Class, { foreignKey: "id_class" });
-
-Module.hasMany(Learns, { foreignKey: "id_module" });
-Learns.belongsTo(Module, { foreignKey: "id_module" });
-
-User.belongsTo(Class, { foreignKey: "id_class" });
-Class.hasMany(User, { foreignKey: "id_class" });
 
 const initDb = () => {
     return sequelize.sync({ force: true })
@@ -63,7 +47,7 @@ const initDb = () => {
         console.log("Database & tables created!");
     })
     .catch((err: Error) => {
-        console.error("Unable to create database & tables:");
+        console.error("Unable to create database & tables:" + err);
     });
 }
 
