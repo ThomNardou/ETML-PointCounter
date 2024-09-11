@@ -16,7 +16,7 @@ const port = process.env.API_PORT || 3000;
 const msalClient = new ConfidentialClientApplication(msalConfig)
 
 
-export { msalClient };
+export { msalClient, port };
 
 
 app.use(express.json());
@@ -43,6 +43,7 @@ declare module 'express-session' {
 app.use('/login', loginRouter);
 app.use('/auth/redirect', redirectRouter);
 app.use('/logout', logoutRouter);
+
 
 
 app.get("/", (req: Request, res: Response) => {
