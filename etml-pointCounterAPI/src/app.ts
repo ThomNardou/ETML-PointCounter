@@ -16,7 +16,6 @@ const port = process.env.API_PORT || 3000;
 const msalClient = new ConfidentialClientApplication(msalConfig)
 
 
-export { msalClient, port };
 
 
 app.use(express.json());
@@ -55,12 +54,12 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 sequelize.authenticate()
-    .then(() => {
-        console.log("Connection has been established successfully!");
-    })
-    .catch((err: Error) => {
-        console.error("Unable to connect to the database:", err);
-    });
+.then(() => {
+    console.log("Connection has been established successfully!");
+})
+.catch((err: Error) => {
+    console.error("Unable to connect to the database:", err);
+});
 
 initDb();
 
@@ -68,3 +67,5 @@ app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 })
 
+
+export { msalClient, port };

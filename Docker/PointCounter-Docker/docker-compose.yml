@@ -24,12 +24,16 @@ services:
 
   adminer:
     image: adminer
+    restart: always
     ports:
       - "8081:8080"
     depends_on:
       - postgres
     environment:
+      ADMINER_DESIGN: dracula
       ADMINER_DEFAULT_SERVER: postgres
+      ADMINER_DEFAULT_USERNAME: root
+      ADMINER_DEFAULT_PASSWORD: root
 
 networks:
   default:
