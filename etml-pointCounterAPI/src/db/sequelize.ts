@@ -14,8 +14,6 @@ import { group } from "console";
 
 dotenv.config();
 
-
-
 const sequelize: Sequelize = new Sequelize({
     dialect: PostgresDialect,
     database: process.env.DB_NAME,
@@ -37,11 +35,10 @@ const Learns = LearnsModel(sequelize);
 User.belongsTo(Class, { foreignKey: "fk_class" });
 Class.hasMany(User, { foreignKey: "fk_class" });
 
-Team.hasMany(Module, { foreignKey: "fk_module" });
-Module.belongsTo(Team, { foreignKey: "fk_module" });
+Module.hasMany(Team, { foreignKey: "fk_module" });
+Team.belongsTo(Module, { foreignKey: "fk_module" });
 
-
-const initDb = () => {
+const initDb = async () => {
     return sequelize.sync({ force: true })
     .then(() => {
         console.log("Database & tables created!");
