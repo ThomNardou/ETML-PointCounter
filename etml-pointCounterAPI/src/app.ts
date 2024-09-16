@@ -7,6 +7,7 @@ import session = require("express-session");
 import { loginRouter } from "./routes/login/login";
 import { redirectRouter } from "./routes/login/redirect";
 import { logoutRouter } from "./routes/logout/logout";
+import { getAllStudentPointsPerModuleRouter } from "./routes/global/getAllStudentPointsPerModule";
 
 dotenv.config();
 
@@ -67,5 +68,8 @@ app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 })
 
+
+// Route that gets all the students with their points per module
+app.use("/", getAllStudentPointsPerModuleRouter)
 
 export { msalClient, port };
