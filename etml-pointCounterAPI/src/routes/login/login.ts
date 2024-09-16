@@ -1,12 +1,15 @@
 import express, { Express, Request, Response } from 'express';
+import dotenv from "dotenv";
 import { msalClient, port } from '../../app';
 
 const loginRouter: Express = express();
 
+const APIHost = process.env.API_HOST || "localhost";
+
 loginRouter.get('/', (req: Request, res: Response) => {
     const authCodeUrlParameters = {
         scopes: ["openid", "profile", "User.Read"],
-        redirectUri: `http://localhost:${port}/auth/redirect`,
+        redirectUri: `http://${process.env.API_HOST}:${port}/auth/redirect`,
     };
 
     msalClient
