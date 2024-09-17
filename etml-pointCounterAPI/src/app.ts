@@ -8,6 +8,8 @@ import { loginRouter } from "./routes/login/login";
 import { redirectRouter } from "./routes/login/redirect";
 import { logoutRouter } from "./routes/logout/logout";
 import { getAllStudentPointsPerModuleRouter } from "./routes/global/getAllStudentPointsPerModule";
+import { getAllTeamPointsPerModuleRouter } from "./routes/global/getAllTeamsPointsPerModule";
+import { getAllClassPointsPerModuleRouter } from "./routes/global/getAllClassPointsPerModule";
 
 dotenv.config();
 
@@ -62,7 +64,7 @@ sequelize.authenticate()
     console.error("Unable to connect to the database:", err);
 });
 
-initDb();
+//initDb();
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
@@ -71,5 +73,12 @@ app.listen(port, () => {
 
 // Route that gets all the students with their points per module
 app.use("/", getAllStudentPointsPerModuleRouter)
+
+// Route that gets all the Teams with their points per module
+app.use("/", getAllTeamPointsPerModuleRouter)
+
+// Route that gets all the Teams with their points per module
+app.use("/", getAllClassPointsPerModuleRouter)
+
 
 export { msalClient, port };
