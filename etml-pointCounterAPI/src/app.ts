@@ -10,6 +10,7 @@ import { logoutRouter } from "./routes/logout/logout";
 import { getAllStudentPointsPerModuleRouter } from "./routes/global/getAllStudentPointsPerModule";
 import { getAllTeamPointsPerModuleRouter } from "./routes/global/getAllTeamsPointsPerModule";
 import { getAllClassPointsPerModuleRouter } from "./routes/global/getAllClassPointsPerModule";
+import { updateStudentPointsFromAModule } from "./routes/global/updateStudentPointsFromAModule";
 
 dotenv.config();
 
@@ -80,5 +81,7 @@ app.use("/", getAllTeamPointsPerModuleRouter)
 // Route that gets all the Teams with their points per module
 app.use("/", getAllClassPointsPerModuleRouter)
 
+// Route that updates a student's points from a module
+app.use("/", updateStudentPointsFromAModule)
 
 export { msalClient, port };
