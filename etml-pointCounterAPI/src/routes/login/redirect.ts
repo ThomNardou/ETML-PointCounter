@@ -15,32 +15,28 @@ redirectRouter.get("/", (req: Request, res: Response) => {
     .acquireTokenByCode(tokenRequest)
     .then((response) => {
       
-      User.findOne({
-        where: { email: req.session.user?.username },
-      })
+      User.findOne({ where: { useEmail: response.account?.username } })
       .then((user) => {
-        
-        if (!user) {
+        if (user == null) {
           User.create({
             useName: response.account?.name,
-            email: response.account?.username,
+            useEmail: response.account?.username,
             useSurname: response.account?.username.split("@")[0],
             useIsTeacher: false,
             fk_class: 1,
           })
           .then((user) => {
-            console.log("Utilisateur créé: ", user);
-            
+            console.log(`User created.`);
           })
           .catch((error) => {
-            console.log("Erreur lors de la création de l'utilisateur: ", error);
+            res.status(500).send("Erreur lors de la connexion.");
           });
         }
-        
       })
       .catch((error) => {
-        res.status(500).send("Erreur lors de la recherche de l'utilisateur.");
+        res.status(500).send("Erreur lors de la connexion.");
       });
+
       
       req.session.user = response.account ?? undefined;
       
