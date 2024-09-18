@@ -7,12 +7,14 @@ import session = require("express-session");
 import { loginRouter } from "./routes/login/login";
 import { redirectRouter } from "./routes/login/redirect";
 import { logoutRouter } from "./routes/logout/logout";
-import { getAllStudentPointsPerModuleRouter } from "./routes/global/getAllStudentPointsPerModule";
-import { getAllTeamPointsPerModuleRouter } from "./routes/global/getAllTeamsPointsPerModule";
-import { getAllClassPointsPerModuleRouter } from "./routes/global/getAllClassPointsPerModule";
-import { updateStudentPointsFromAModule } from "./routes/global/updateStudentPointsFromAModule";
-import { updateTeamPointsFromAModule } from "./routes/global/updateTeamPointsFromAModule";
-import { getAllModulesStudentParticipates } from "./routes/global/getAllModulesStudentParticipates";
+
+
+import { getAllStudentPointsPerModuleRouter } from "./routes/global/getRoutes/getAllStudentPointsPerModule";
+import { getAllTeamPointsPerModuleRouter } from "./routes/global/getRoutes/getAllTeamsPointsPerModule";
+import { getAllClassPointsPerModuleRouter } from "./routes/global/getRoutes/getAllClassPointsPerModule";
+import { updateStudentPointsFromAModule } from "./routes/global/updateRoutes/updateStudentPointsFromAModule";
+import { updateTeamPointsFromAModule } from "./routes/global/updateRoutes/updateTeamPointsFromAModule";
+import { getAllModulesStudentParticipates } from "./routes/global/getRoutes/getAllModulesStudentParticipates";
 
 dotenv.config();
 
@@ -67,7 +69,7 @@ sequelize.authenticate()
     console.error("Unable to connect to the database:", err);
 });
 
-//initDb();
+// initDb();
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
