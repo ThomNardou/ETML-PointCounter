@@ -41,6 +41,17 @@ Team.belongsTo(Module, { foreignKey: "fk_module" });
 const initDb = async () => {
     return sequelize.sync({ force: true })
     .then(() => {
+        
+        Class.create({
+            claName: "Default Class",
+        })
+        .then(() => {
+            console.log("Default Class created!");
+        })
+        .catch((err: Error) => {
+            console.error("Unable to create default class:" + err);
+        });
+
         console.log("Database & tables created!");
     })
     .catch((err: Error) => {
