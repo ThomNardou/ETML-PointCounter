@@ -15,6 +15,7 @@ import { getAllClassPointsPerModuleRouter } from "./routes/global/getRoutes/getA
 import { updateStudentPointsFromAModule } from "./routes/global/updateRoutes/updateStudentPointsFromAModule";
 import { updateTeamPointsFromAModule } from "./routes/global/updateRoutes/updateTeamPointsFromAModule";
 import { getAllModulesStudentParticipates } from "./routes/global/getRoutes/getAllModulesStudentParticipates";
+import { createNewTeamRouter } from "./routes/global/postRoutes/createNewTeam";
 
 dotenv.config();
 
@@ -51,6 +52,19 @@ app.use('/login', loginRouter);
 app.use('/auth/redirect', redirectRouter);
 app.use('/logout', logoutRouter);
 
+///////////////////////////////////////////////// GET ROUTES //////////////////////////////////////////////////
+app.use("/", getAllStudentPointsPerModuleRouter)
+app.use("/", getAllTeamPointsPerModuleRouter)
+app.use("/", getAllClassPointsPerModuleRouter)
+app.use('/', getAllModulesStudentParticipates)
+
+///////////////////////////////////////////////// UPDATE ROUTES //////////////////////////////////////////////////
+app.use("/", updateStudentPointsFromAModule)
+app.use("/", updateTeamPointsFromAModule)
+
+///////////////////////////////////////////////// POST ROUTE //////////////////////////////////////////////////
+app.use("/team", createNewTeamRouter);
+
 
 
 app.get("/", (req: Request, res: Response) => {
@@ -74,24 +88,5 @@ initDb();
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 })
-
-
-// Route that gets all the students with their points per module
-app.use("/", getAllStudentPointsPerModuleRouter)
-
-// Route that gets all the Teams with their points per module
-app.use("/", getAllTeamPointsPerModuleRouter)
-
-// Route that gets all the Teams with their points per module
-app.use("/", getAllClassPointsPerModuleRouter)
-
-// Route that updates a student's points from a module
-app.use("/", updateStudentPointsFromAModule)
-
-// Route that updates a team's points
-app.use("/", updateTeamPointsFromAModule)
-
-// Route that gets all the modules that the student takes part in
-app.use('/', getAllModulesStudentParticipates)
 
 export { msalClient, port };

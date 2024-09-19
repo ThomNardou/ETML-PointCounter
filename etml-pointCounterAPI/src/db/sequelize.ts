@@ -59,9 +59,6 @@ const importClasses = () => {
         Class.create({
             claName: classe.claName,
         })
-        .then(() => {
-            console.log(`Class ${classe.claName} created!`);	
-        })
         .catch((err: Error) => {
             console.error("Unable to create default class:" + err);
         });
@@ -76,9 +73,6 @@ const importModules = () => {
             modTrimester: module.modTrimester,
             modType: module.modType,
             modYear: module.modYear,
-        })
-        .then(() => {
-            console.log(`Module ${module.modType}${module.modNumber} created!`);
         })
         .catch((err: Error) => {
             console.error("Unable to create module:" + err);
