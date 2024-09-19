@@ -69,7 +69,7 @@ sequelize.authenticate()
     console.error("Unable to connect to the database:", err);
 });
 
-// initDb();
+initDb();
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);

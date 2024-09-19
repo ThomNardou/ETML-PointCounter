@@ -12,6 +12,7 @@ import { TeamModel } from "../models/t_team";
 import dotenv from "dotenv";
 import { group } from "console";
 import { modules } from "./mock-modules";
+import { classes } from "./mock-classes";
 
 dotenv.config();
 
@@ -54,14 +55,16 @@ const initDb = async () => {
 }
 
 const importClasses = () => {
-    Class.create({
-        claName: "Default Class",
-    })
-    .then(() => {
-        console.log("Default Class created!");
-    })
-    .catch((err: Error) => {
-        console.error("Unable to create default class:" + err);
+    classes.map((classe) => {
+        Class.create({
+            claName: classe.claName,
+        })
+        .then(() => {
+            console.log(`Class ${classe.claName} created!`);	
+        })
+        .catch((err: Error) => {
+            console.error("Unable to create default class:" + err);
+        });
     });
 }
 
