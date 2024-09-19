@@ -11,6 +11,7 @@ import { TeamModel } from "../models/t_team";
 
 import dotenv from "dotenv";
 import { group } from "console";
+import { modules } from "./mock-modules";
 
 dotenv.config();
 
@@ -42,21 +43,44 @@ const initDb = async () => {
     return sequelize.sync({ force: true })
     .then(() => {
         
-        Class.create({
-            claName: "Default Class",
-        })
-        .then(() => {
-            console.log("Default Class created!");
-        })
-        .catch((err: Error) => {
-            console.error("Unable to create default class:" + err);
-        });
+        importClasses();
+        importModules();
 
         console.log("Database & tables created!");
     })
     .catch((err: Error) => {
         console.error("Unable to create database & tables:" + err);
     });
+}
+
+const importClasses = () => {
+    Class.create({
+        claName: "Default Class",
+    })
+    .then(() => {
+        console.log("Default Class created!");
+    })
+    .catch((err: Error) => {
+        console.error("Unable to create default class:" + err);
+    });
+}
+
+const importModules = () => {
+    modules.map((module) => {
+        Module.create({
+            modNumber: module.modNumber,
+            modTeacher: module.modTeacher,
+            modTrimester: module.modTrimester,
+            modType: module.modType,
+            modYear: module.modYear,
+        })
+        .then(() => {
+            console.log(`Module ${module.modType}${module.modNumber} created!`);
+        })
+        .catch((err: Error) => {
+            console.error("Unable to create module:" + err);
+        });
+    })
 }
 
 export { sequelize, initDb, User, Module, Class, Team, Has, IsAffiliated, Learns };
