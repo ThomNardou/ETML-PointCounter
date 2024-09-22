@@ -16,6 +16,9 @@ import { updateStudentPointsFromAModule } from "./routes/global/updateRoutes/upd
 import { updateTeamPointsFromAModule } from "./routes/global/updateRoutes/updateTeamPointsFromAModule";
 import { getAllModulesStudentParticipates } from "./routes/global/getRoutes/getAllModulesStudentParticipates";
 import { createNewTeamRouter } from "./routes/global/postRoutes/createNewTeam";
+import { updateTeamRouter } from "./routes/global/updateRoutes/updateTeam";
+import { deleteTeamRouter } from "./routes/global/deleteRoutes/deleteTeam";
+import { addStudentInTeamRouter } from "./routes/global/postRoutes/addStudentInTeam";
 
 dotenv.config();
 
@@ -59,11 +62,16 @@ app.use("/", getAllClassPointsPerModuleRouter)
 app.use('/', getAllModulesStudentParticipates)
 
 ///////////////////////////////////////////////// UPDATE ROUTES //////////////////////////////////////////////////
-app.use("/", updateStudentPointsFromAModule)
-app.use("/", updateTeamPointsFromAModule)
+app.use("/update", updateStudentPointsFromAModule)
+app.use("/update", updateTeamPointsFromAModule)
+app.use("/update/team", updateTeamRouter)
 
 ///////////////////////////////////////////////// POST ROUTE //////////////////////////////////////////////////
-app.use("/team", createNewTeamRouter);
+app.use("/create/team", createNewTeamRouter);
+app.use("/add/team", addStudentInTeamRouter);
+
+///////////////////////////////////////////////// DELETE ROUTE ////////////////////////////////////////////////// 
+app.use("/delete/team", deleteTeamRouter);
 
 
 
@@ -83,7 +91,7 @@ sequelize.authenticate()
     console.error("Unable to connect to the database:", err);
 });
 
-initDb();
+// initDb();
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);

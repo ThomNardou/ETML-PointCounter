@@ -13,7 +13,7 @@ const IsAffiliatedModel = (sequelize: Sequelize) => {
         },
         fk_team: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
             references: {
                 model:Team,
                 key: 'id_team'
