@@ -14,6 +14,27 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import * as React from "react";
+import dotenv from 'dotenv'
+import axios from 'redaxios'
+
+dotenv.config();
+
+const baseUrl: string = process.env.baseUrl!;
+
+async function CallingApiStudentsScore() {
+  const response = await axios.get(`http://${baseUrl}/module/1/students`);
+  const students: { 
+    id: number, 
+    fk_user: number, 
+    fk_module: number,
+    nbrOfPersonnalPoints: number,
+    createdAt: Date,
+    updatedAt: Date
+  }[] = response.data;
+
+  console.log(students);
+}
+
 
 const rows = [
   { studentId: 1, name: "pk88yte", points: 100 },
@@ -34,6 +55,8 @@ const modules = [
 export default function Home() {
 
   const [module, setModule] = React.useState<number>(0);
+  
+  CallingApiStudentsScore();
 
   return (
     <main>
