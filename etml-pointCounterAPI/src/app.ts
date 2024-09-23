@@ -8,7 +8,6 @@ import { loginRouter } from "./routes/login/login";
 import { redirectRouter } from "./routes/login/redirect";
 import { logoutRouter } from "./routes/logout/logout";
 
-
 import { getAllStudentPointsPerModuleRouter } from "./routes/global/getRoutes/getAllStudentPointsPerModule";
 import { getAllTeamPointsPerModuleRouter } from "./routes/global/getRoutes/getAllTeamsPointsPerModule";
 import { getAllClassPointsPerModuleRouter } from "./routes/global/getRoutes/getAllClassPointsPerModule";
@@ -20,6 +19,8 @@ import { updateTeamRouter } from "./routes/global/updateRoutes/updateTeam";
 import { deleteTeamRouter } from "./routes/global/deleteRoutes/deleteTeam";
 import { addStudentInTeamRouter } from "./routes/global/postRoutes/addStudentInTeam";
 
+import cors from 'cors';
+
 dotenv.config();
 
 const app = express();
@@ -29,7 +30,7 @@ const msalClient = new ConfidentialClientApplication(msalConfig)
 
 
 
-
+app.use(cors());
 app.use(express.json());
 app.use(
     session({
