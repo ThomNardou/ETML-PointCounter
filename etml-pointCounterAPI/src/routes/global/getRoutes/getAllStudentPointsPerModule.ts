@@ -7,7 +7,7 @@ const getAllStudentPointsPerModuleRouter = express.Router();
 getAllStudentPointsPerModuleRouter.get(
   "/module/:id/students",
   async (req: Request, res: Response) => {
-    Has.findAll({ where: { fk_module: req.params.id } })
+    Has.findAll({ where: { fk_module: parseInt(req.params.id) } })
       .then((has) => {
         if (has != null) {
           res.status(200).json({ numberOfPoints: has });

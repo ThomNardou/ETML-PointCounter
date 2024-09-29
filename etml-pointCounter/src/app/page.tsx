@@ -22,17 +22,14 @@ dotenv.config();
 const baseUrl: string = process.env.baseUrl!;
 
 async function CallingApiStudentsScore() {
-  const response = await axios.get(`http://${baseUrl}/module/1/students`);
-  const students: { 
-    id: number, 
-    fk_user: number, 
-    fk_module: number,
-    nbrOfPersonnalPoints: number,
-    createdAt: Date,
-    updatedAt: Date
-  }[] = response.data;
+  await axios.get(`${baseUrl}/module/1/students`)
+  .then((response) => {
+    console.log(response.data);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
-  console.log(students);
 }
 
 
