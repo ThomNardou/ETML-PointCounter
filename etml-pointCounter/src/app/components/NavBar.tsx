@@ -1,18 +1,36 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
+import { Button } from "@mui/material"
+import axios from 'redaxios'
+import dotenv from 'dotenv'
+
+dotenv.config()
+
 export default function NavBarComponent() {
+    function goToLogin() {
+        axios.get(`${process.env.baseUrl}/login`, {
+            withCredentials: true
+        })
+    }
     return (
         <>
-            <header className="w-full h-20 flex justify-center mt-10 mb-10">
-                <div className="w-6/12 h-20 rounded-full  bg-slate-800 flex items-center">
-                    <nav className="w-full flex justify-end">
-                        <ul className="navBar flex w-2/5 mr-12 justify-between items-center text-white">
-                            <li>Gamification</li>
-                            <li><Link href="/about">about</Link></li>
-                            <li><Image src={""} alt="User Pfp" width={60} height={60} className="bg-neutral-700 rounded-full"/></li>
-                        </ul>
-                    </nav>
-                </div>
+            <header className="w-full h-20 mt-8 flex items-center justify-between">
+                <Image className="ml-4" src="/logo.png" alt="Logo" width={80} height={80} style={{backgroundColor: 'red'}}/>
+                <nav className="w-1/4">
+                    <ul className="flex justify-evenly">
+                        <li>
+                            <Link href="/">Home</Link>
+                        </li>
+                        <li>
+                            <Link href="/admin">Admin</Link>
+                        </li>
+                        <li>
+                            <Button className="test" onClick={goToLogin} variant="contained" color="primary">Login</Button>
+                        </li>
+                    </ul>
+                </nav>
             </header>
         </>
     )
