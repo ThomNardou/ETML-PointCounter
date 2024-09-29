@@ -20,6 +20,8 @@ import { deleteTeamRouter } from "./routes/global/deleteRoutes/deleteTeam";
 import { addStudentInTeamRouter } from "./routes/global/postRoutes/addStudentInTeam";
 
 import cors from 'cors';
+import { getAllStudentInClassRouter } from "./routes/global/getRoutes/getAllStudentsInClass";
+import { getStudentByIdRouter } from "./routes/global/getRoutes/getStudentById";
 
 dotenv.config();
 
@@ -61,6 +63,8 @@ app.use("/", getAllStudentPointsPerModuleRouter)
 app.use("/", getAllTeamPointsPerModuleRouter)
 app.use("/", getAllClassPointsPerModuleRouter)
 app.use('/', getAllModulesStudentParticipates)
+app.use("/students/class", getAllStudentInClassRouter)
+app.use("/student", getStudentByIdRouter)
 
 ///////////////////////////////////////////////// UPDATE ROUTES //////////////////////////////////////////////////
 app.use("/update", updateStudentPointsFromAModule)
