@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from 'react';
 import Image from "next/image";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -21,17 +22,27 @@ dotenv.config();
 
 const baseUrl: string = process.env.baseUrl!;
 
+type has = {
+  id: number,
+  fk_user: number,
+  fk_module: number,
+  nbrOfPoints: number,
+  created_at: Date,
+  Updated_at: Date
+};
+
+
 async function CallingApiStudentsScore() {
-  await axios.get(`${baseUrl}/module/1/students`)
+  const students: has = await axios.get(`${baseUrl}/module/1/students`)
   .then((response) => {
-    console.log(response.data);
+    return response.data;
   })
   .catch((error) => {
     console.log(error);
+    return null;
   });
-
+  console.log(students)
 }
-
 
 const rows = [
   { studentId: 1, name: "pk88yte", points: 100 },
@@ -50,10 +61,24 @@ const modules = [
 ];
 
 export default function Home() {
+  // Module and students state
+  const [module, setModule] = useState<number>(0);
+  const [students, setStudents] = useState<has[]>([]);
 
-  const [module, setModule] = React.useState<number>(0);
-  
-  CallingApiStudentsScore();
+  // Fetch students when the component mounts
+  useEffect(() => {
+    const fetchStudents = async () => {
+      await axios.get<has[]>(`${baseUrl}/api/module/1/students`)
+      .then((result) => {
+        console.log(result.data)
+        setStudents(result.data);
+      }).catch((err) =>{
+        console.error('Error fetching students: ' + err)
+      })
+    };
+
+    fetchStudents();
+  }, []);
 
   return (
     <main>
@@ -65,7 +90,6 @@ export default function Home() {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={0}
               label="Module"
             >
               <MenuItem value={10}>Ten</MenuItem>
@@ -74,6 +98,7 @@ export default function Home() {
             </Select>
           </FormControl>
         </Box>
+
         <TableContainer
           component={Paper}
           sx={{
@@ -119,31 +144,39 @@ export default function Home() {
             </TableHead>
 
             <TableBody>
-              {rows.map((row, index) => (
-                <TableRow key={row.studentId}>
-                  <TableCell sx={{ color: "white" }}>{index + 1}</TableCell>
-                  <TableCell
-                    sx={{
-                      borderBottomColor: "darkgray",
-                      borderLeftColor: "darkgray",
-                      borderLeftWidth: "2px",
-                      color: "white",
-                    }}
-                  >
-                    {row.name}
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      borderBottomColor: "darkgray",
-                      borderLeftColor: "darkgray",
-                      borderLeftWidth: "2px",
-                      color: "white",
-                    }}
-                  >
-                    {row.points}
+              {students.length > 0 ? (
+                students.map((student, index) => (
+                  <TableRow key={student.fk_user}>
+                    <TableCell sx={{ color: "white" }}>{index + 1}</TableCell>
+                    <TableCell
+                      sx={{
+                        borderBottomColor: "darkgray",
+                        borderLeftColor: "darkgray",
+                        borderLeftWidth: "2px",
+                        color: "white",
+                      }}
+                    >
+                      {student.fk_user}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        borderBottomColor: "darkgray",
+                        borderLeftColor: "darkgray",
+                        borderLeftWidth: "2px",
+                        color: "white",
+                      }}
+                    >
+                      {student.nbrOfPoints}
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={3} sx={{ color: "white" }}>
+                    No students available
                   </TableCell>
                 </TableRow>
-              ))}
+              )}
             </TableBody>
           </Table>
         </TableContainer>
