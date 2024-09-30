@@ -20,6 +20,9 @@ import { deleteTeamRouter } from "./routes/global/deleteRoutes/deleteTeam";
 import { addStudentInTeamRouter } from "./routes/global/postRoutes/addStudentInTeam";
 
 import cors from 'cors';
+import { getAllStudentInClassRouter } from "./routes/global/getRoutes/getAllStudentsInClass";
+import { getStudentByIdRouter } from "./routes/global/getRoutes/getStudentById";
+import { getHisPersonnalInfoRouter } from "./routes/global/getRoutes/getHisPersonnalInfo";
 
 dotenv.config();
 
@@ -30,7 +33,9 @@ const msalClient = new ConfidentialClientApplication(msalConfig)
 
 
 
-app.use(cors());
+app.use(cors(
+    
+));
 app.use(express.json());
 app.use(
     session({
@@ -61,6 +66,9 @@ app.use("/", getAllStudentPointsPerModuleRouter)
 app.use("/", getAllTeamPointsPerModuleRouter)
 app.use("/", getAllClassPointsPerModuleRouter)
 app.use('/', getAllModulesStudentParticipates)
+app.use("/students/class", getAllStudentInClassRouter)
+app.use("/student", getStudentByIdRouter)
+app.use("/myInfo", getHisPersonnalInfoRouter)
 
 ///////////////////////////////////////////////// UPDATE ROUTES //////////////////////////////////////////////////
 app.use("/update", updateStudentPointsFromAModule)
