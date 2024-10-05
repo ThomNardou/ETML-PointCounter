@@ -96,7 +96,7 @@ export default function Home() {
 
     const fetchModules = async() => {
       has.forEach(async (module) => {
-        await axios.get<module[]>(`${baseUrl}/api/student/${module.fk_module}`)
+        await axios.get<module[]>(`${baseUrl}/api/module/${module.fk_module}`)
         .then((result) => {
           setModules(result.data)
         }).catch((err) =>{
