@@ -31,17 +31,13 @@ type has = {
   Updated_at: Date
 };
 
-
-async function CallingApiStudentsScore() {
-  const students: has = await axios.get(`${baseUrl}/module/1/students`)
-  .then((response) => {
-    return response.data;
-  })
-  .catch((error) => {
-    console.log(error);
-    return null;
-  });
-  console.log(students)
+type students = {
+  id_user: number,
+  useName: string,
+  useEmail: string,
+  useSurname: string,
+  useIsTeacher: boolean,
+  fk_class: number
 }
 
 const rows = [
@@ -64,20 +60,32 @@ export default function Home() {
   // Module and students state
   const [module, setModule] = useState<number>(0);
   const [students, setStudents] = useState<has[]>([]);
+  const [studentsDetails, setStudentsDetails] = useState<students[]>([])
 
   // Fetch students when the component mounts
   useEffect(() => {
     const fetchStudents = async () => {
       await axios.get<has[]>(`${baseUrl}/api/module/1/students`)
       .then((result) => {
-        console.log(result.data)
         setStudents(result.data);
       }).catch((err) =>{
         console.error('Error fetching students: ' + err)
       })
     };
 
+    const fetchStudentsDetails = async () => {
+      students.forEach(async (student) => {
+        await axios.get<students[]>(`${baseUrl}/api/student/${student.fk_user}`)
+        .then((result) => {
+          setStudentsDetails(result.data)
+        }).catch((err) =>{
+          console.error('Error fetching students: ' + err)
+        })
+      }) 
+    }
+
     fetchStudents();
+    fetchStudentsDetails()
   }, []);
 
   return (
