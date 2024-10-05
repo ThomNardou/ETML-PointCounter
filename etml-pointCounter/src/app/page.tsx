@@ -64,7 +64,7 @@ export default function Home() {
 
   // Fetch students when the component mounts
   useEffect(() => {
-    const fetchStudents = async () => {
+    const fetchHas = async () => {
       await axios.get<has[]>(`${baseUrl}/api/module/1/students`)
       .then((result) => {
         setStudents(result.data);
@@ -84,7 +84,7 @@ export default function Home() {
       }) 
     }
 
-    fetchStudents();
+    fetchHas();
     fetchStudentsDetails()
   }, []);
 
