@@ -31,13 +31,22 @@ type has = {
   Updated_at: Date
 };
 
-type students = {
+type student = {
   id_user: number,
   useName: string,
   useEmail: string,
   useSurname: string,
   useIsTeacher: boolean,
   fk_class: number
+}
+
+type module = {
+  id_module: number,
+  modNumber: number,
+  modType: string,
+  modTeacher: string,
+  modYear: number,
+  modTrimester: number
 }
 
 const rows = [
@@ -59,23 +68,24 @@ const modules = [
 export default function Home() {
   // Module and students state
   const [module, setModule] = useState<number>(0);
-  const [students, setStudents] = useState<has[]>([]);
-  const [studentsDetails, setStudentsDetails] = useState<students[]>([])
+  const [has, setHas] = useState<has[]>([]);
+  const [studentsDetails, setStudentsDetails] = useState<student[]>([])
+  const [modules, setModules] = useState<module[]>([])
 
   // Fetch students when the component mounts
   useEffect(() => {
     const fetchHas = async () => {
       await axios.get<has[]>(`${baseUrl}/api/module/1/students`)
       .then((result) => {
-        setStudents(result.data);
+        setHas(result.data);
       }).catch((err) =>{
         console.error('Error fetching students: ' + err)
       })
     };
 
-    const fetchStudentsDetails = async () => {
-      students.forEach(async (student) => {
-        await axios.get<students[]>(`${baseUrl}/api/student/${student.fk_user}`)
+    const fetchStudents = async () => {
+      has.forEach(async (student) => {
+        await axios.get<student[]>(`${baseUrl}/api/student/${student.fk_user}`)
         .then((result) => {
           setStudentsDetails(result.data)
         }).catch((err) =>{
@@ -84,8 +94,20 @@ export default function Home() {
       }) 
     }
 
+    const fetchModules = async() => {
+      has.forEach(async (module) => {
+        await axios.get<module[]>(`${baseUrl}/api/student/${module.fk_module}`)
+        .then((result) => {
+          setModules(result.data)
+        }).catch((err) =>{
+          console.error('Error fetching students: ' + err)
+        })
+      }) 
+    }
+
     fetchHas();
-    fetchStudentsDetails()
+    fetchStudents();
+    fetchModules();
   }, []);
 
   return (
@@ -152,8 +174,8 @@ export default function Home() {
             </TableHead>
 
             <TableBody>
-              {students.length > 0 ? (
-                students.map((student, index) => (
+              {has.length > 0 ? (
+                has.map((student, index) => (
                   <TableRow key={student.fk_user}>
                     <TableCell sx={{ color: "white" }}>{index + 1}</TableCell>
                     <TableCell
