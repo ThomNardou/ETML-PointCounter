@@ -18,6 +18,7 @@ import { createNewTeamRouter } from "./routes/global/postRoutes/createNewTeam";
 import { updateTeamRouter } from "./routes/global/updateRoutes/updateTeam";
 import { deleteTeamRouter } from "./routes/global/deleteRoutes/deleteTeam";
 import { addStudentInTeamRouter } from "./routes/global/postRoutes/addStudentInTeam";
+import { getModuleByIdRouter } from "./routes/global/getRoutes/getModuleById";
 
 import cors from 'cors';
 import { getAllStudentInClassRouter } from "./routes/global/getRoutes/getAllStudentsInClass";
@@ -69,6 +70,7 @@ app.use('/', getAllModulesStudentParticipates)
 app.use("/students/class", getAllStudentInClassRouter)
 app.use("/student", getStudentByIdRouter)
 app.use("/myInfo", getHisPersonnalInfoRouter)
+app.use("/module", getModuleByIdRouter)
 
 ///////////////////////////////////////////////// UPDATE ROUTES //////////////////////////////////////////////////
 app.use("/update", updateStudentPointsFromAModule)
